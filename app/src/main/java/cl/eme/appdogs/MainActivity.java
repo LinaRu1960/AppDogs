@@ -1,8 +1,12 @@
 package cl.eme.appdogs;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import cl.eme.appdogs.presenter.PresenterBreed;
+import cl.eme.appdogs.view.AdapterBreed;
 
 /* TODO
 Descripcion
@@ -35,15 +39,21 @@ Parte I - Modelo de la app
 * [X] Añadir permisos de Internet en Manifest
 * [X] Implementar Retrofit en build.gradle
 * [X] Habilitar librerias (Picasso y Glide)
+* [X] Activar DataBinding
 * [] 1. Creación del modelo de la aplicación.
-      [] ● Crear los POJOS necesarios para recibir la información de la API.
-      [] ● Crear el POJOS necesario para subir la colección de favoritos a FireStore (raza, url, timeStamp) .
-      [] ○ Observación: Obtener el TimeStamp en formato String.
+      [X] ● Crear los POJOS necesarios para recibir la información de la API.
+            [X] Breeds
+            [X] ListImage
+      [X] ● Crear el POJOS necesario para subir la colección de favoritos a FireStore (raza, url, timeStamp) .
+             [X] Favorites
 * [] 2. Crear item_list_XXX.xml que correspondan a cada elemento a mostrar.
+        [] item_list_breed.xml
+        [] item_list_ListImage.xml
+        [] item_list_favorites.xml
 * [] 3. Crear los Fragmentos necesarios:
-      [] ● Listado de razas.
-      [] ● Detalles.
-      [] ● Listado de favoritos (opcional).
+      [X] ● Listado de razas.(BreedList)
+      [X] ● Detalles.(BreedDetail
+      [X] ● Listado de favoritos (opcional).(FavoritesList)
 * [] 4. Mostrar en un fragmento el RecyclerView con el listado de razas.
 * [] 5. Mostrar en un fragmento el RecyclerView con el listado de fotos de la raza seleccionada.
 * [] 6. Crear los adapters que serán necesarios para transformar los distintos DataSet.
@@ -61,6 +71,9 @@ Parte III - Guardar favoritos usando FireStore
 
  */
 public class MainActivity extends AppCompatActivity {
+    PresenterBreed presenter;
+    private AdapterBreed recyclerview;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
