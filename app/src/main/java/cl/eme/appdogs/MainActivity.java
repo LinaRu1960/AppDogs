@@ -31,10 +31,10 @@ Requerimientos específicos
 
 TAREAS
 Parte I - Modelo de la app
-* [] Crear Repositorio en GitHub
-* [] Añadir permisos de Internet en Manifest
-* [] Implementar Retrofit en build.gradle
-* [] Habilitar librerias (Picasso y Glide)
+* [X] Crear Repositorio en GitHub
+* [X] Añadir permisos de Internet en Manifest
+* [X] Implementar Retrofit en build.gradle
+* [X] Habilitar librerias (Picasso y Glide)
 * [] 1. Creación del modelo de la aplicación.
       [] ● Crear los POJOS necesarios para recibir la información de la API.
       [] ● Crear el POJOS necesario para subir la colección de favoritos a FireStore (raza, url, timeStamp) .
