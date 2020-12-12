@@ -1,21 +1,24 @@
 package cl.eme.appdogs.model;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public class Breeds {
-    private List<String> message;
+import java.util.List;
+import java.util.Map;
+
+public class Breed {
+    private Map<String, List<String>> message;
     private String status;
 
-    public Breeds(List<String> message, String status) {
+    public Breed(Map<String, List<String>> message, String status) {
         this.message = message;
         this.status = status;
     }
 
-    public List<String> getMessage() {
+    public Map<String, List<String>> getMessage() {
         return message;
     }
 
-    public void setMessage(List<String> message) {
+    public void setMessage(Map<String, List<String>> message) {
         this.message = message;
     }
 
@@ -27,11 +30,13 @@ public class Breeds {
         this.status = status;
     }
 
+    @NotNull
     @Override
     public String toString() {
-        return "Breeds{" +
+        return "Breed{" +
                 "message=" + message +
                 ", status='" + status + '\'' +
                 '}';
     }
 }
+

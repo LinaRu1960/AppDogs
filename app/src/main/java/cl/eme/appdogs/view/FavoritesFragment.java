@@ -3,19 +3,28 @@ package cl.eme.appdogs.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import cl.eme.appdogs.R;
+import cl.eme.appdogs.databinding.FragmentFavoritesBinding;
+import cl.eme.appdogs.model.Repository;
+import cl.eme.appdogs.presenter.FavoritesPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FavoritesList#newInstance} factory method to
+ * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoritesList extends Fragment {
+public class FavoritesFragment extends Fragment {
+    private static final String TAG ="Infolog";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,8 +34,12 @@ public class FavoritesList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FavoritesAdapter adapter;
+    private FavoritesPresenter presenter;
+    private RecyclerView recyclerView;
+    private FragmentFavoritesBinding binding;
 
-    public FavoritesList() {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +52,8 @@ public class FavoritesList extends Fragment {
      * @return A new instance of fragment FavoritesList.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavoritesList newInstance(String param1, String param2) {
-        FavoritesList fragment = new FavoritesList();
+    public static FavoritesFragment newInstance(String param1, String param2) {
+        FavoritesFragment fragment = new FavoritesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +73,25 @@ public class FavoritesList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding= FragmentFavoritesBinding.inflate(inflater, container, false);
+        View thisView = binding.getRoot();
+        Log.d(TAG, "onCreateView: Construyendo el Adapter de Favorites");
+        adapter = new FavoritesAdapter(new ArrayList<>());
+        Log.d(TAG, "onCreateView: Construyendo el Presenter de Favorites");
+        presenter= new FavoritesPresenter(this, new Repository());
+        recyclerView = binding.rvFavorites;
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
+        Log.d(TAG, "onCreateView: vinculando Favorites Fragment con Adapter");
+        recyclerView.setAdapter(adapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites_list, container, false);
+        return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding=null;
+    }
+
+
 }
