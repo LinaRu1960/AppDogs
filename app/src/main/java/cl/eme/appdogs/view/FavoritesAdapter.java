@@ -16,21 +16,21 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import cl.eme.appdogs.databinding.ItemListFavoritesBinding;
-import cl.eme.appdogs.model.Favorites;
+import cl.eme.appdogs.model.Favorite;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesAdapterVH> {
 
-    private List<Favorites>favoritesList;
+    private List<Favorite> favoriteList;
     private ItemListFavoritesBinding binding;
     private static final String TAG= "Infolog";
-    public FavoritesAdapter(List<Favorites> favoritesList){
-        this.favoritesList = favoritesList;
+    public FavoritesAdapter(List<Favorite> favoriteList){
+        this.favoriteList = favoriteList;
     }
 
     @NonNull
     @Override
     public FavoritesAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d(TAG, "onCreateViewHolder: la lista de favoritos tiene: " + favoritesList.size()+ "elementos");
+        Log.d(TAG, "onCreateViewHolder: la lista de favoritos tiene: " + favoriteList.size()+ "elementos");
         binding = ItemListFavoritesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         View view = binding.getRoot();
         return new FavoritesAdapterVH(view);
@@ -38,22 +38,22 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapterVH holder, int position) {
-        Favorites favorite = favoritesList.get(position);
+        Favorite favorite = favoriteList.get(position);
         Log.d(TAG, "onBindViewHolder position"+ position + "" + favorite.toString());
         holder.bind(favorite);
 
     }
-    public void updateFavorites(List<Favorites> pFavoritesList){
-        Log.d(TAG, "updateFavorites: en Adapter"+ favoritesList.toString());
-        favoritesList.clear();
-        favoritesList.addAll(pFavoritesList);
+    public void updateFavorites(List<Favorite> pFavoriteList){
+        Log.d(TAG, "updateFavorites: en Adapter"+ favoriteList.toString());
+        favoriteList.clear();
+        favoriteList.addAll(pFavoriteList);
         notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
-        Log.d(TAG, "getItemCount: la lista de favoritos tiene: " +favoritesList.size()+ "elementos");
+        Log.d(TAG, "getItemCount: la lista de favoritos tiene: " + favoriteList.size()+ "elementos");
 
-        return favoritesList.size();
+        return favoriteList.size();
     }
 
     public class FavoritesAdapterVH extends RecyclerView.ViewHolder{
@@ -70,7 +70,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             context = itemView.getContext();
         }
 
-        public void bind(Favorites favorite) {
+        public void bind(Favorite favorite) {
             Log.d(TAG, "bind favorito: "+ favorite);
             breedFavorite.setText(favorite.getBreed().toUpperCase());
             timeStamp.setText(favorite.getTimeStamp());

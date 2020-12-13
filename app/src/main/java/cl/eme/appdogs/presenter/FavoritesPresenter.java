@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import cl.eme.appdogs.model.Favorites;
+import cl.eme.appdogs.model.Favorite;
 import cl.eme.appdogs.model.Repository;
 
 public class FavoritesPresenter {
@@ -19,7 +19,7 @@ public class FavoritesPresenter {
         repository.downloadAllFavorites();
     }
 
-    public void showFavorites(List<Favorites> listFavorites) {
+    public void showFavorites(List<Favorite> listFavorites) {
         Log.d(TAG, "showFavorites: en Presenter" + listFavorites.toString());
         favoriteView.showFavorites(listFavorites);
         Log.d(TAG, "showFavorites: en Presenter. La Lista tiene "+ listFavorites.size()+ "elementos");

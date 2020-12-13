@@ -14,17 +14,18 @@ import cl.eme.appdogs.databinding.ItemListBreedBinding;
 
 public class BreedAdapter extends RecyclerView.Adapter<BreedAdapter.BreedAdapterVH>{
 
-    private List<String> listOfBreeds;
+    private List<String> listOfBreed;
     private OnItemClickListener listener;
     private ItemListBreedBinding binding;
 
-    public BreedAdapter(List<String> breedsList, MainActivity pListener) {
-        this.listOfBreeds = breedsList;
-       //this.listener = pListener;
+    public BreedAdapter(List<String> listOfBreed, OnItemClickListener pListener) {
+        this.listOfBreed = listOfBreed;
+        this.listener = pListener;
     }
 
-    public List<String> getBreedsList() {
-        return listOfBreeds;
+
+    public List<String> getListOfBreed() {
+        return listOfBreed;
     }
 
 
@@ -39,18 +40,18 @@ public class BreedAdapter extends RecyclerView.Adapter<BreedAdapter.BreedAdapter
 
     @Override
     public void onBindViewHolder(@NonNull BreedAdapter.BreedAdapterVH holder, int position) {
-        String breed = listOfBreeds.get(position);
+        String breed = listOfBreed.get(position);
         holder.bind(breed);
     }
 
     @Override
     public int getItemCount() {
-        return listOfBreeds.size();
+        return listOfBreed.size();
     }
     
-    public void updateBreeds(List<String>breeds){
-        listOfBreeds.clear();
-        listOfBreeds.addAll(breeds);
+    public void updateBreeds(List<String>breed){
+        listOfBreed.clear();
+        listOfBreed.addAll(breed);
         notifyDataSetChanged();
     }
     public class BreedAdapterVH extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -63,6 +64,7 @@ public class BreedAdapter extends RecyclerView.Adapter<BreedAdapter.BreedAdapter
         }
         
         public void bind(String breed){
+
             tvBreed.setText(breed.toUpperCase());
         }
 

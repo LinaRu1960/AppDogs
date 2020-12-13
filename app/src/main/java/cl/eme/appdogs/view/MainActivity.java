@@ -28,10 +28,10 @@ import cl.eme.appdogs.view.FavoritesFragment;
 
 /* TODO
 Descripcion
-* [] 1. Muestre un listado de razas de perritos.
-* [] 2. Al seleccionar una raza de perritos, muestre un listado de fotos de perros de esa raza.
-* [] 3. Al darle un click largo sobre la imagen de un perro, puedas guardar esa foto especifica como favorita.
-* [] 4. Debe haber un listado de fotos con los perros favoritos. (opcional)
+* [X] 1. Muestre un listado de razas de perritos.
+* [X] 2. Al seleccionar una raza de perritos, muestre un listado de fotos de perros de esa raza.
+* [X] 3. Al darle un click largo sobre la imagen de un perro, puedas guardar esa foto especifica como favorita.
+* [X] 4. Debe haber un listado de fotos con los perros favoritos. (opcional)
 
 Requerimientos generales
 [X] ● Utilizar un patrón de diseño MVP.
@@ -47,7 +47,7 @@ Requerimientos específicos
 [X] ● Imagen favorita sea almacenada en FireStore.
 [X] ● Utilizar librerías externas para mostrar las imágenes (Picasso, Glide).
 [X] ● Utilizar Retrofit para la conexión a la API y Gson para el mapeo de datos.
-[] ● Debe utilizar Firebase(FireStore) para almacenar datos de favoritos.
+[X] ● Debe utilizar Firebase(FireStore) para almacenar datos de favoritos.
 [] ● Para unir las vistas puedes utilizar el método que estime conveniente.( findViewById,butterknife, dataBinding )
 [] ● Realizar test unitarios en el presentador.
 
@@ -58,7 +58,7 @@ Parte I - Modelo de la app
 * [X] Implementar Retrofit en build.gradle
 * [X] Habilitar librerias (Picasso y Glide)
 * [X] Activar DataBinding
-* [] 1. Creación del modelo de la aplicación.
+* [X] 1. Creación del modelo de la aplicación.
       [X] ● Crear los POJOS necesarios para recibir la información de la API.
             [X] Breed
             [X] BreedImage
@@ -83,15 +83,15 @@ Parte II - Consumo y muestra de información
 [X] 2. Realizar la conexión a la API.
 [X] 3. Crear el presentador que servirá para conectar la vista con el modelo. Se necesita más de un presentador.
 [X] 4. Implementar los métodos en las vista correspondientes.
-[] 5. Instanciar los adapters donde sea necesario y pasar los dataSets que necesite cada uno de ellos.
+[X] 5. Instanciar los adapters donde sea necesario y pasar los dataSets que necesite cada uno de ellos.
 
 Parte III - Guardar favoritos usando FireStore
-[] 1. Implementar la funcionalidad para que al hacer un click largo a una foto, este lleve los datos a FireStore
-[] 2. Mostrar el detalle de los favoritos en un Fragmento de detalles (Opcional)
+[X] 1. Implementar la funcionalidad para que al hacer un click largo a una foto, este lleve los datos a FireStore
+[X] 2. Mostrar el detalle de los favoritos en un Fragmento de detalles (Opcional)
  */
 
 
-public class MainActivity extends AppCompatActivity implements IBreedPresenterView, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements IBreedPresenterView, OnItemClickListener {
 
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
@@ -118,19 +118,14 @@ public class MainActivity extends AppCompatActivity implements IBreedPresenterVi
                 .addToBackStack("Detail")
                 .commit());
 
-
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
 
     @Override
-    public void showBreed(List<String> breeds) {
+    public void showBreed(List<String> breed) {
         Log.d(TAG, "showBreed: Actualiza lista de razas en el adapter");
-        adapter.updateBreeds(breeds);
+        adapter.updateBreeds(breed);
 
     }
 
@@ -140,7 +135,14 @@ public class MainActivity extends AppCompatActivity implements IBreedPresenterVi
     }
 
     @Override
-    public void showToast_Succes() {
+    public void showToast_Success() {
 
     }
+
+    public void onClick(int position) {
+        Log.d(TAG, "onClick: haciendo click en el elemento de la lista"+adapter.getListOfBreed().get(position));
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_recyclerview,PicturesFragment.newInstance("",adapter.getListOfBreed().get(position))).addToBackStack("Detail").commit();
+
+    }
+
 }

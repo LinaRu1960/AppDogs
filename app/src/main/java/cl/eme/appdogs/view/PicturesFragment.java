@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import cl.eme.appdogs.R;
 import cl.eme.appdogs.databinding.FragmentPicturesBinding;
 import cl.eme.appdogs.model.Repository;
@@ -27,19 +28,20 @@ import cl.eme.appdogs.presenter.PicturesPresenter;
  * Use the {@link PicturesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PicturesFragment extends Fragment implements IBreedPresenterView, View.OnLongClickListener {
+public class PicturesFragment extends Fragment implements IBreedPresenterView, OnItemLongClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String TAG = "Infolog";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String TAG = "Infolog";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private TextView tvBreedTitle;
+
     private PicturesPresenter presenter;
     private PicturesAdapter adapter;
     private RecyclerView recyclerView;
@@ -82,10 +84,9 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, V
         // Inflate the layout for this fragment
         binding=FragmentPicturesBinding.inflate(inflater,container, false);
         View view=binding.getRoot();
-        tvBreedTitle=binding.textView;
-        //tvBreedTitle.setText(""Picture list for breed: "" +mParam2.toUpperCase());
+
         Log.d(TAG, "onCreate View: llama al presentador de Pictures");
-        adapter= new PicturesAdapter(new ArrayList<>(), (OnItemLongClickListener) this);
+        adapter= new PicturesAdapter(new ArrayList<>(), this);
         presenter=new PicturesPresenter(this, new Repository(), mParam2);
         recyclerView=binding.rvPictures;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -112,14 +113,16 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, V
     }
 
     @Override
-    public void showToast_Succes() {
+    public void showToast_Success() {
         Toast.makeText(getContext(),"Agregando imagen a Favorites", Toast.LENGTH_LONG).show();
 
     }
 
+
     @Override
-    public boolean onLongClick(View v) {
-        return false;
+    public void onLongClick(int position) {
+        Log.d(TAG, "onClick: haciendo long click en el elemento de la lista"+ adapter.getListOfPictures().get(position));
+        presenter.addFavorite(adapter.getListOfPictures().get(position),mParam2);
     }
 }
 

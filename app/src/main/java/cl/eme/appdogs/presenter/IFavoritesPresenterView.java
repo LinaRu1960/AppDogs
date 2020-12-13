@@ -2,11 +2,11 @@ package cl.eme.appdogs.presenter;
 
 import java.util.List;
 
-import cl.eme.appdogs.model.Favorites;
+import cl.eme.appdogs.model.Favorite;
 
 public interface IFavoritesPresenterView {
 
-    void showFavorites(List<Favorites> listFavorites);
+    void showFavorites(List<Favorite> listFavorites);
 
-    void showBreed(List<String> breeds);
+
 }

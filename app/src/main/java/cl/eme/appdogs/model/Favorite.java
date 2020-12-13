@@ -1,6 +1,6 @@
 package cl.eme.appdogs.model;
 
-public class Favorites {
+public class Favorite {
     private String breed;
     private String urlImage;
     private String timeStamp;

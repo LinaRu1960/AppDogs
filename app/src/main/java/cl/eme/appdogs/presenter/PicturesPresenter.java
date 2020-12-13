@@ -15,10 +15,10 @@ public class PicturesPresenter implements IRepositoryPresenter {
         private Repository repository;
         private String breed;
 
-         public PicturesPresenter(IBreedPresenterView viewPicture, Repository repository, String breed) {
-             this.viewPicture = viewPicture;
+         public PicturesPresenter(IBreedPresenterView viewBreed, Repository repository, String pBreed) {
+             this.viewPicture = viewBreed;
              this.repository = repository;
-             this.breed = breed;
+             this.breed = pBreed;
              Log.d(TAG, "PicturePresenter: seteando el presentador del repositorio");
              repository.setPicturesPresenter(this);
              Log.d(TAG, "PicturePresenter: llamando al metodo loadBreedList");
@@ -29,14 +29,14 @@ public class PicturesPresenter implements IRepositoryPresenter {
 
     @Override
     public void showBreed(List<String> breeds) {
-        Log.d(TAG, "showBreed: llamando a showBreed en PicturesPresenter"+ breeds);
+        Log.d(TAG, "showBreed: llama a showBreed en PicturesPresenter"+ breeds);
         viewPicture.showBreed(breeds);
     }
 
-    public void addFavorites(String pPicture, String pBreed){
+    public void addFavorite(String pPicture, String pBreed){
              if (!repository.isFavorite(pPicture)){
                  repository.loadNewFavorite(pPicture,pBreed);
-                 viewPicture.showToast_Succes();
+                 viewPicture.showToast_Success();
              }
              else {
                  viewPicture.showToast_Failure();

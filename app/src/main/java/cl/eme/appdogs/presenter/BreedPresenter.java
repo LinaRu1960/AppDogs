@@ -10,10 +10,10 @@ import cl.eme.appdogs.view.MainActivity;
 
 public class BreedPresenter implements IRepositoryPresenter {
     private static final String TAG = "InfoLog";
-    private IFavoritesPresenterView viewBreed;
+    private IBreedPresenterView viewBreed;
     private Repository repository;
 
-    public BreedPresenter(IFavoritesPresenterView viewBreed, Repository repository) {
+    public BreedPresenter(IBreedPresenterView viewBreed, Repository repository) {
         this.viewBreed = viewBreed;
         this.repository = repository;
         Log.d(TAG, "BreedPresenter: seteando el presentador del repositorio");
@@ -23,9 +23,6 @@ public class BreedPresenter implements IRepositoryPresenter {
         repository.getFavorites();
     }
 
-    public BreedPresenter(MainActivity mainActivity, Repository repository) {
-
-    }
 
     @Override
     public void showBreed(List<String> breeds) {

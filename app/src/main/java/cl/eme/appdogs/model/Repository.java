@@ -28,9 +28,8 @@ public class Repository {
     private PicturesPresenter picturesPresenter;
     private FavoritesPresenter favoritesPresenter;
     private List<String> breedsImage=new ArrayList<>();
-    private final Set<Favorites> favoritesListToFilter= new HashSet<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private final Set<Favorite> favoriteListFilter = new HashSet<>();
 
     public void setBreedPresenter(BreedPresenter breedPresenter) {
         this.breedPresenter = breedPresenter;
@@ -44,22 +43,22 @@ public class Repository {
         this.favoritesPresenter = favoritesPresenter;
     }
 
-    public void setBreedsImage(List<String> breedsImage) {
-        this.breedsImage = breedsImage;
-    }
+   // public void setBreedsImage(List<String> breedsImage) {
+   //     this.breedsImage = breedsImage;
+   // }
 
-    public void setDb(FirebaseFirestore db) {
-        this.db = db;
-    }
+   // public void setDb(FirebaseFirestore db) {
+   //     this.db = db;
+   // }
 
     public void loadBreedList(){
         RetrofitClient.getRetrofitInstance().getAllBreeds().enqueue(new Callback<Breed>() {
             @Override
             public void onResponse(Call<Breed> call, Response<Breed> response) {
-                Log.d(TAG, "onResponse: Lista razas: " + response.body().getMessage().keySet().toString());
+                Log.d(TAG, "onResponse: Lista de razas: " + response.body().getMessage().keySet().toString());
                 List<String> breeds = new ArrayList<>();
                 breeds.addAll(response.body().getMessage().keySet());
-                Log.d(TAG, "onResponse: Enviando lista al presentador" + breeds.toString().toUpperCase());
+                Log.d(TAG, "onResponse: Envi lista al presentador" + breeds.toString().toUpperCase());
                 breedPresenter.showBreed(breeds);
             }
 
@@ -103,20 +102,20 @@ public class Repository {
     }
 
     public void downloadAllFavorites() {
-        List<Favorites> listFavorites = new ArrayList<>();
+        List<Favorite> listFavorites = new ArrayList<>();
         db.collection("favorites")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
-                            Favorites favorite = setFavorite(document);
+                            Favorite favorite = setFavorite(document);
                             listFavorites.add(favorite);
-                            Log.d(TAG, "onComplete: Lista Favoritos:a añadido " + favorite.toString());
-                            Log.d(TAG, "onComplete: La lista tiene actualmente " + listFavorites.size() + " elementos");
+                            Log.d(TAG, "onComplete: Lista Favoritos: agrego " + favorite.toString());
+                            Log.d(TAG, "onComplete: La lista tiene  " + listFavorites.size() + " elementos");
                         }
                         Log.d(TAG, "onComplete: enviando lista favoritos al presenter" + listFavorites.toString());
-                        Log.d(TAG, "onComplete: La lista tiene actualmente " + listFavorites.size() + " elementos");
+                        Log.d(TAG, "onComplete: La lista tiene  " + listFavorites.size() + " elementos");
                         favoritesPresenter.showFavorites(listFavorites);
 
 
@@ -136,13 +135,11 @@ public class Repository {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d(TAG, document.getId() + " => " + document.getData());
-                            Favorites favorite = setFavorite(document);
-                            favoritesListToFilter.add(favorite);
-                            Log.d(TAG, "onComplete IsFavorites: Lista Favoritos:a añadido " + favorite.toString());
-                            Log.d(TAG, "onComplete isFavorites: La lista tiene actualmente " + favoritesListToFilter.size() + " elementos");
+                            Favorite favorite = setFavorite(document);
+                            favoriteListFilter.add(favorite);
+                            Log.d(TAG, "onComplete IsFavorites: Lista Favoritos:agrego " + favorite.toString());
+                            Log.d(TAG, "onComplete isFavorites: La lista tiene " + favoriteListFilter.size() + " elementos");
                         }
-
-
 
                     } else {
                         Log.w(TAG, "Error getting documents. isFavorites", task.getException());
@@ -152,8 +149,8 @@ public class Repository {
         return true;
     }
 
-    private Favorites setFavorite(QueryDocumentSnapshot document) {
-        Favorites favorite = new Favorites();
+    private Favorite setFavorite(QueryDocumentSnapshot document) {
+        Favorite favorite = new Favorite();
         favorite.setBreed(document.getString("breed"));
         favorite.setTimeStamp(document.getString("timeStamp"));
         favorite.setUrlImage(document.getString("urlPicture"));
@@ -164,9 +161,9 @@ public class Repository {
         boolean result = true;
 
         if (getFavorites()) {
-            Log.d(TAG, "isFavorite: Favoriteslist" + favoritesListToFilter.toString());
+            Log.d(TAG, "isFavorite: Favoriteslist" + favoriteListFilter.toString());
             List<String> filter = new ArrayList<>();
-            for (Favorites favorite : favoritesListToFilter) {
+            for (Favorite favorite : favoriteListFilter) {
                 String addURL = favorite.getUrlImage();
                 Log.d(TAG, "isFavorite: añadiendo URLs a filter" + addURL);
                 filter.add(addURL);

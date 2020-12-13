@@ -12,18 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cl.eme.appdogs.R;
 import cl.eme.appdogs.databinding.FragmentFavoritesBinding;
+import cl.eme.appdogs.model.Favorite;
 import cl.eme.appdogs.model.Repository;
 import cl.eme.appdogs.presenter.FavoritesPresenter;
+import cl.eme.appdogs.presenter.IFavoritesPresenterView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoritesFragment extends Fragment {
+public class FavoritesFragment extends Fragment implements IFavoritesPresenterView {
     private static final String TAG ="Infolog";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -78,7 +81,7 @@ public class FavoritesFragment extends Fragment {
         Log.d(TAG, "onCreateView: Construyendo el Adapter de Favorites");
         adapter = new FavoritesAdapter(new ArrayList<>());
         Log.d(TAG, "onCreateView: Construyendo el Presenter de Favorites");
-        //presenter= new FavoritesPresenter(this, new Repository());
+       presenter= new FavoritesPresenter(this, new Repository());
         recyclerView = binding.rvFavorites;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
         Log.d(TAG, "onCreateView: vinculando Favorites Fragment con Adapter");
@@ -94,4 +97,9 @@ public class FavoritesFragment extends Fragment {
     }
 
 
+    @Override
+    public void showFavorites(List<Favorite> listFavorites) {
+        Log.d(TAG, "showFavorites: en Fragmento: la lista tiene"+ listFavorites.size()+ " elementos");
+        adapter.updateFavorites(listFavorites);
+    }
 }
