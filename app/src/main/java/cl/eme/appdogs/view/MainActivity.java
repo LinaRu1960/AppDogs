@@ -48,7 +48,7 @@ Requerimientos específicos
 [X] ● Utilizar librerías externas para mostrar las imágenes (Picasso, Glide).
 [X] ● Utilizar Retrofit para la conexión a la API y Gson para el mapeo de datos.
 [X] ● Debe utilizar Firebase(FireStore) para almacenar datos de favoritos.
-[] ● Para unir las vistas puedes utilizar el método que estime conveniente.( findViewById,butterknife, dataBinding )
+[X] ● Para unir las vistas puedes utilizar el método que estime conveniente.( findViewById,butterknife, dataBinding )
 [] ● Realizar test unitarios en el presentador.
 
 TAREAS
@@ -57,20 +57,20 @@ Parte I - Modelo de la app
 * [X] Añadir permisos de Internet en Manifest
 * [X] Implementar Retrofit en build.gradle
 * [X] Habilitar librerias (Picasso y Glide)
-* [X] Activar DataBinding
+* [X] Activar ViewBinding
 * [X] 1. Creación del modelo de la aplicación.
       [X] ● Crear los POJOS necesarios para recibir la información de la API.
             [X] Breed
             [X] BreedImage
       [X] ● Crear el POJOS necesario para subir la colección de favoritos a FireStore (raza, url, timeStamp) .
-             [X] Favorites
+             [X] Favorite
 * [X] 2. Crear item_list_XXX.xml que correspondan a cada elemento a mostrar.
         [X] item_list_breed.xml
-        [X] item_list_ListImage.xml
+        [X] item_list_listpictures.xml
         [X] item_list_favorites.xml
 * [X] 3. Crear los Fragmentos necesarios:
-      [X] ● Listado de razas.(BreedList)
-      [X] ● Detalles.(BreedDetail
+      [X] ● Listado de razas.
+      [X] ● Detalles.
       [X] ● Listado de favoritos (opcional).(FavoritesList)
 * [X] 4. Mostrar en un fragmento el RecyclerView con el listado de razas.
 * [X] 5. Mostrar en un fragmento el RecyclerView con el listado de fotos de la raza seleccionada.

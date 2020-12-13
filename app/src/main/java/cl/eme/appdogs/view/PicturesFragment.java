@@ -41,7 +41,7 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, O
     private String mParam1;
     private String mParam2;
 
-
+    private TextView tvBreedTitle;
     private PicturesPresenter presenter;
     private PicturesAdapter adapter;
     private RecyclerView recyclerView;

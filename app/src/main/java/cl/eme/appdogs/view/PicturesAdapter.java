@@ -21,7 +21,9 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
     private OnItemLongClickListener listener;
     private ItemListPicturesBinding binding;
 
-
+    public PicturesAdapter(List<String> listOfPictures) {
+        this.listOfPictures = listOfPictures;
+    }
 
     public PicturesAdapter(List<String> listOfPictures, OnItemLongClickListener listener) {
         this.listOfPictures = listOfPictures;
@@ -79,7 +81,7 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
         public void bind(String picture){
             Glide.with(context)
                     .load(picture)
-                    .override(400,400)
+                    .override(500,500)
                     .into(imgPictures);
 
         }
