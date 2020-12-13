@@ -3,32 +3,28 @@ package cl.eme.appdogs.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import cl.eme.appdogs.R;
 import cl.eme.appdogs.databinding.ItemListBreedBinding;
 
 public class BreedAdapter extends RecyclerView.Adapter<BreedAdapter.BreedAdapterVH>{
 
-    private List<String> breedsList;
+    private List<String> listOfBreeds;
     private OnItemClickListener listener;
     private ItemListBreedBinding binding;
 
-    public BreedAdapter(List<String> breedsList, OnItemClickListener pListener) {
-        this.breedsList = breedsList;
-        this.listener = pListener;
+    public BreedAdapter(List<String> breedsList, MainActivity pListener) {
+        this.listOfBreeds = breedsList;
+       //this.listener = pListener;
     }
 
     public List<String> getBreedsList() {
-        return breedsList;
+        return listOfBreeds;
     }
 
 
@@ -43,18 +39,18 @@ public class BreedAdapter extends RecyclerView.Adapter<BreedAdapter.BreedAdapter
 
     @Override
     public void onBindViewHolder(@NonNull BreedAdapter.BreedAdapterVH holder, int position) {
-        String breed = breedsList.get(position);
+        String breed = listOfBreeds.get(position);
         holder.bind(breed);
     }
 
     @Override
     public int getItemCount() {
-        return breedsList.size();
+        return listOfBreeds.size();
     }
     
     public void updateBreeds(List<String>breeds){
-        breedsList.clear();
-        breedsList.addAll(breeds);
+        listOfBreeds.clear();
+        listOfBreeds.addAll(breeds);
         notifyDataSetChanged();
     }
     public class BreedAdapterVH extends RecyclerView.ViewHolder implements View.OnClickListener{

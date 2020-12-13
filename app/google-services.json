@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256199987422",
+    "project_id": "appdogs-a67ce",
+    "storage_bucket": "appdogs-a67ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256199987422:android:8b84dab7f93f83fe92724f",
+        "android_client_info": {
+          "package_name": "cl.eme.appdogs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256199987422-5pc6ginnug7qcmhiucdt46tvtcj3bepa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKIcUqEw4JpmVF0FDFWiw0_amSVcpFuv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256199987422-5pc6ginnug7qcmhiucdt46tvtcj3bepa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

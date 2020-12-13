@@ -20,17 +20,17 @@ import cl.eme.appdogs.presenter.PicturesPresenter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Repository {
 
-    private static final String TAG = "Informacion";
+    private static final String TAG = "Infolog";
     private BreedPresenter breedPresenter;
     private PicturesPresenter picturesPresenter;
     private FavoritesPresenter favoritesPresenter;
     private List<String> breedsImage=new ArrayList<>();
-    private FirebaseFirestore dbFavorites = FirebaseFirestore.getInstance();
     private final Set<Favorites> favoritesListToFilter= new HashSet<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     public void setBreedPresenter(BreedPresenter breedPresenter) {
         this.breedPresenter = breedPresenter;
@@ -48,8 +48,8 @@ public class Repository {
         this.breedsImage = breedsImage;
     }
 
-    public void setDbFavorites(FirebaseFirestore dbFavorites) {
-        this.dbFavorites = dbFavorites;
+    public void setDb(FirebaseFirestore db) {
+        this.db = db;
     }
 
     public void loadBreedList(){
@@ -96,7 +96,7 @@ public class Repository {
         favorite.put("urlPicture", pPicture);
         favorite.put("timeStamp", new Date().toString());
 
-        dbFavorites.collection("favorites")
+        db.collection("favorites")
                 .add(favorite)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
@@ -104,7 +104,7 @@ public class Repository {
 
     public void downloadAllFavorites() {
         List<Favorites> listFavorites = new ArrayList<>();
-        dbFavorites.collection("favorites")
+        db.collection("favorites")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -130,7 +130,7 @@ public class Repository {
 
     public boolean getFavorites() {
 
-        dbFavorites.collection("favorites")
+        db.collection("favorites")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

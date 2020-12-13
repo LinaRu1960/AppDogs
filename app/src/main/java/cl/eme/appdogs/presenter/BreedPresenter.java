@@ -6,6 +6,7 @@ import java.util.List;
 
 import cl.eme.appdogs.model.IRepositoryPresenter;
 import cl.eme.appdogs.model.Repository;
+import cl.eme.appdogs.view.MainActivity;
 
 public class BreedPresenter implements IRepositoryPresenter {
     private static final String TAG = "InfoLog";
@@ -20,6 +21,10 @@ public class BreedPresenter implements IRepositoryPresenter {
         Log.d(TAG, "BreedPresenter: llamando al metodo LoadBreedList");
         repository.loadBreedList();
         repository.getFavorites();
+    }
+
+    public BreedPresenter(MainActivity mainActivity, Repository repository) {
+
     }
 
     @Override

@@ -83,9 +83,9 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, V
         binding=FragmentPicturesBinding.inflate(inflater,container, false);
         View view=binding.getRoot();
         tvBreedTitle=binding.textView;
-       // tvBreedTitle.setText(""Picture list for breed: "" +mParam2.toUpperCase());
-        Log.d(TAG, "onCreate View: llamando al presentador de Pictures");
-        adapter= new PicturesAdapter(new ArrayList<>(),this);
+        //tvBreedTitle.setText(""Picture list for breed: "" +mParam2.toUpperCase());
+        Log.d(TAG, "onCreate View: llama al presentador de Pictures");
+        adapter= new PicturesAdapter(new ArrayList<>(), (OnItemLongClickListener) this);
         presenter=new PicturesPresenter(this, new Repository(), mParam2);
         recyclerView=binding.rvPictures;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -93,7 +93,11 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, V
 
         return view;
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding=null;
+    }
 
     @Override
     public void showBreed(List<String> breeds) {
@@ -103,25 +107,20 @@ public class PicturesFragment extends Fragment implements IBreedPresenterView, V
 
     @Override
     public void showToast_Failure() {
-        Toast.makeText(getContext(),"The picture was already in Favorites", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),"La imagen ya esta en Favorites", Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void showToast_Succes() {
-        Toast.makeText(getContext(),"Adding the picture to Favorites", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),"Agregando imagen a Favorites", Toast.LENGTH_LONG).show();
 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding=null;
+    public boolean onLongClick(View v) {
+        return false;
     }
-
-
-
-    }
-
-
 }
+
+

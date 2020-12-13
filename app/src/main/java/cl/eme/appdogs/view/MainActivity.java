@@ -1,4 +1,4 @@
-package cl.eme.appdogs;
+package cl.eme.appdogs.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,13 +10,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cl.eme.appdogs.R;
 import cl.eme.appdogs.databinding.ActivityMainBinding;
 import cl.eme.appdogs.model.Repository;
 import cl.eme.appdogs.presenter.BreedPresenter;
 import cl.eme.appdogs.presenter.IBreedPresenterView;
+import cl.eme.appdogs.presenter.IFavoritesPresenterView;
 import cl.eme.appdogs.view.BreedAdapter;
 import cl.eme.appdogs.view.FavoritesFragment;
 
@@ -28,19 +34,19 @@ Descripcion
 * [] 4. Debe haber un listado de fotos con los perros favoritos. (opcional)
 
 Requerimientos generales
-[] ● Utilizar un patrón de diseño MVP.
-[] ● Utilizar un sistema de control de versiones(Git). Como mínimo un commit por parte.
+[X] ● Utilizar un patrón de diseño MVP.
+[X] ● Utilizar un sistema de control de versiones(Git). Como mínimo un commit por parte.
 
 Requerimientos específicos
-[] ● API dog.ceo (Retrofit)
-[] ● Utilizar como EndPoints.
+[X] ● API dog.ceo (Retrofit)
+[X] ● Utilizar como EndPoints.
     [X] ○ breeds/list/ (Para el listado de razas).
     [X] ○ breed/{breed}/images/ (Para el listado de imágenes basándonos en una raza).
-[] ● Single Activity y las vistas en Fragmentos.
-[] ● Botón que muestre el listado de favoritos.
-[] ● Imagen favorita sea almacenada en FireStore.
-[] ● Utilizar librerías externas para mostrar las imágenes (Picasso, Glide).
-[] ● Utilizar Retrofit para la conexión a la API y Gson para el mapeo de datos.
+[X] ● Single Activity y las vistas en Fragmentos.
+[X] ● Botón que muestre el listado de favoritos.
+[X] ● Imagen favorita sea almacenada en FireStore.
+[X] ● Utilizar librerías externas para mostrar las imágenes (Picasso, Glide).
+[X] ● Utilizar Retrofit para la conexión a la API y Gson para el mapeo de datos.
 [] ● Debe utilizar Firebase(FireStore) para almacenar datos de favoritos.
 [] ● Para unir las vistas puedes utilizar el método que estime conveniente.( findViewById,butterknife, dataBinding )
 [] ● Realizar test unitarios en el presentador.
@@ -58,7 +64,7 @@ Parte I - Modelo de la app
             [X] BreedImage
       [X] ● Crear el POJOS necesario para subir la colección de favoritos a FireStore (raza, url, timeStamp) .
              [X] Favorites
-* [] 2. Crear item_list_XXX.xml que correspondan a cada elemento a mostrar.
+* [X] 2. Crear item_list_XXX.xml que correspondan a cada elemento a mostrar.
         [X] item_list_breed.xml
         [X] item_list_ListImage.xml
         [X] item_list_favorites.xml
@@ -68,7 +74,7 @@ Parte I - Modelo de la app
       [X] ● Listado de favoritos (opcional).(FavoritesList)
 * [X] 4. Mostrar en un fragmento el RecyclerView con el listado de razas.
 * [X] 5. Mostrar en un fragmento el RecyclerView con el listado de fotos de la raza seleccionada.
-* [] 6. Crear los adapters que serán necesarios para transformar los distintos DataSet.
+* [X] 6. Crear los adapters que serán necesarios para transformar los distintos DataSet.
 
 Parte II - Consumo y muestra de información
 [X] 1. Crear el Cliente Retrofit y la interface necesaria para la conexión.
@@ -87,7 +93,7 @@ Parte III - Guardar favoritos usando FireStore
 
 public class MainActivity extends AppCompatActivity implements IBreedPresenterView, AdapterView.OnItemClickListener {
 
-    private static final String TAG = "Infolog";
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
     BreedPresenter presenter;
     private BreedAdapter adapter;
@@ -101,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements IBreedPresenterVi
         setContentView(view);
         adapter = new BreedAdapter(new ArrayList<>(), this);
         presenter = new BreedPresenter(this,new Repository());
-        Log.d(TAG, "onCreate: Construyendo adaptador y RecyclerView");
+        Log.d(TAG, "onCreate: Se construye adaptador y RecyclerView");
         RecyclerView recyclerView = binding.rvBreedRecycler;
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
@@ -123,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements IBreedPresenterVi
 
     @Override
     public void showBreed(List<String> breeds) {
-        Log.d(TAG, "showBreed: Actualizando lista de breeds en el adapter");
-        adapterBreed.updateBreeds(breeds);
+        Log.d(TAG, "showBreed: Actualiza lista de razas en el adapter");
+        adapter.updateBreeds(breeds);
 
     }
 

@@ -1,6 +1,6 @@
 package cl.eme.appdogs.view;
 
 public class OnItemClickListener {
-    public void onClick(int position) {
+    void onClick(int position) {
     }
 }

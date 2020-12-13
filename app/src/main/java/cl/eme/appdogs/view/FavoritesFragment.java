@@ -78,13 +78,13 @@ public class FavoritesFragment extends Fragment {
         Log.d(TAG, "onCreateView: Construyendo el Adapter de Favorites");
         adapter = new FavoritesAdapter(new ArrayList<>());
         Log.d(TAG, "onCreateView: Construyendo el Presenter de Favorites");
-        presenter= new FavoritesPresenter(this, new Repository());
+        //presenter= new FavoritesPresenter(this, new Repository());
         recyclerView = binding.rvFavorites;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
         Log.d(TAG, "onCreateView: vinculando Favorites Fragment con Adapter");
         recyclerView.setAdapter(adapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        return thisView;
     }
 
     @Override
